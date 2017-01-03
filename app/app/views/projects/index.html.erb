@@ -39,12 +39,10 @@
               </td>
             <% end %>
           <% end %>
-          <% if project.follow_up_1_started? || project.follow_up_2_started?%>
-            <% if current_user.is_funding_project(project.id) == true || current_user.role == 1 %>
-              <td>
-                <%= link_to "Accéder au Follow-Up", objective_validation_project_path(:id => project.id), :class => "btn btn-default" %>
-              </td>
-            <% end %>
+          <% if project.follow_up_1_started? || project.follow_up_2_started? || project.delivery_started? %>
+            <td>
+              <%= link_to "Accéder à la validation", objective_validation_project_path(:id => project.id), :class => "btn btn-default" %>
+            </td>
           <% end %>
         </tr>
     <% end %>

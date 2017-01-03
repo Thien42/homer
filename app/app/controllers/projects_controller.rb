@@ -161,6 +161,8 @@ class ProjectsController < ApplicationController
       @objective = Objective.where({project_id: @project.id, objective_type: 0}).take
     elsif @project.follow_up_2_started?
       @objective = Objective.where({project_id: @project.id, objective_type: 1}).take
+    elsif @project.delivery_started?
+      @objective = Objective.where({project_id: @project.id, objective_type: 2}).take
     end
     @stats = @objective.get_valid_objectives.to_f / @objective.get_total_supports
     if @stats.nan?
