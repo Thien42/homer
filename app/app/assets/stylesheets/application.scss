@@ -1,0 +1,23 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap-datepicker3";
+
+.text-center {
+  text-align: center;
+}
+
+.error {
+  background-color: red;
+}
+
+.success {
+  background-color: green;
+}
+
+.flash {
+  color: white;
+  margin: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1.3em;
+}

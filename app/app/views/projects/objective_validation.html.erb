@@ -1,0 +1,26 @@
+<div class="container">
+  <h1 class="text-center"><%= @objective.objective_type %> pour <%= @project.name %></h1>
+
+  <%= @objective.description.html_safe %>
+
+  <hr>
+
+  <h2 class="text-center">
+    <%= @stats %>&#37; des supporters ont validé cet objectif
+  </h2>
+  <h2 class="text-center"><%= @objective.get_user_votes %> / <%= @objective.get_total_supports %> supporters ont voté</h2>
+
+  <% if @objective.user_has_voted_objective(current_user.id).nil? && current_user.is_funding_project(@project.id) %>
+    <h2 class="text-center">Les objectifs sont-ils atteints ?
+
+      <%= link_to set_objective_status_project_path(:objective_id => @objective.id, :passed => true), :class=> "btn btn-success", :method => 'post' do %>
+          <span class="glyphicon glyphicon-ok"></span>
+      <% end %>
+
+      <%= link_to set_objective_status_project_path(:objective_id => @objective.id, :passed => false), :class=> "btn btn-danger", :method => 'post' do %>
+          <span class="glyphicon glyphicon-remove"></span>
+      <% end %>
+    </h2>
+  <% end %>
+
+</div>

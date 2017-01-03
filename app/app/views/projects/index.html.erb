@@ -1,0 +1,47 @@
+<div class="container">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Nom du projet</th>
+      <th>Description</th>
+      <th>épices demandés pour validation</th>
+      <th colspan="3"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @projects.each do |project| %>
+
+        <tr>
+          <td><%= project.name %></td>
+          <td><%= project.get_status %></td>
+          <td>
+            <%= project.get_funded_spices %>/<%= project.spices %>
+          </td>
+          <td><%= link_to 'Voir le projet', project, :class => "btn btn-default" %></td>
+          <td><%= link_to 'PDF', project_path(project, format: :pdf), :class => "btn btn-default", target: '_blank' %></td>
+          <% if current_user == project.user && project.status == 0  || current_user.role == 1 %>
+          <td>
+            <%= link_to 'Modifier le projet', edit_project_path(project), :class => "btn btn-default" %>
+          </td>
+          <td>
+            <%= link_to 'Supprimer le projet', project, method: :delete, data: { confirm: 'Etes vous sur ?' }, :class => "btn btn-default" %>
+          </td>
+          <% end %>
+          <% if current_user.role == 1 %>
+            <td>
+              <%= link_to project.get_status_action, set_status_project_path(:id => project.id, :status => Project.statuses[project.status] + 1), :class => "btn btn-default", :method => 'post' %>
+            </td>
+          <% end %>
+          <% if project.follow_up_1_started? || project.follow_up_2_started?%>
+            <% if current_user.is_funding_project(project.id) == true || current_user.role == 1 %>
+              <td>
+                <%= link_to "Accéder au Follow-Up", objective_validation_project_path(:id => project.id), :class => "btn btn-default" %>
+              </td>
+            <% end %>
+          <% end %>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

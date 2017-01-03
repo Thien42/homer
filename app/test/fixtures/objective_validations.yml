@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+objectiveTestOne:
+  objective: objectiveTest
+  user: objectiveTest
+  passed: false
+
+objectiveTestTwo:
+  objective: objectiveTest
+  user: objectiveTest
+  passed: true
+
+objectiveTest2:
+  objective: objectiveTest2
+  user: objectiveTest2
+  passed: true
+
+controllerProjectTestOne:
+  objective: controllerProjectTestOne
+  user: controllerProjectTestOne
+  passed: false
+controllerProjectTestTwo:
+  objective: controllerProjectTestOne
+  user: controllerProjectTestTwo
+  passed: false
+controllerProjectTestThree:
+  objective: controllerProjectTestOne
+  user: controllerProjectTestThree
+  passed: false

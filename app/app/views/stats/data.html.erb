@@ -1,0 +1,20 @@
+<div class="container">
+  <h2 class="text-center">Total d'épices disponibles : <%= @spices %></h2>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>email</th>
+      <th>épices</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |u| %>
+        <tr>
+          <td><%= u.email %></td>
+          <td><%= u.spices %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+</div>

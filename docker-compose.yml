@@ -1,0 +1,25 @@
+web:
+    image: rails
+    ports:
+        - "3000:3000"
+    volumes:
+        - ./app:/usr/src/app
+    tty: true
+    stdin_open: true
+    command: /usr/src/app/start.sh
+    links:
+        - mariadb
+        - redis
+    environment:
+        - RAILS_ENV=development
+
+mariadb:
+    image: mariadb
+    expose:
+        - "3306"
+    environment:
+        - MYSQL_ROOT_PASSWORD=root
+    volumes:
+        - ./tmp/db:/var/lib/mysql
+redis:
+    image: redis

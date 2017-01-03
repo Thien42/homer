@@ -1,0 +1,14 @@
+
+<div class="container">
+  <div class="form-horizontal">
+    <h1 class="text-center"><%= @project.name %></h1>
+  </div>
+  <h2>Epices demandes : <%= @project.spices %></h2>
+
+  <%= @project.description.html_safe %>
+
+  <% @project.objectives.each do |obj| %>
+    <h2><%= obj.objective_type %> <%= obj.date %></h2>
+    <%= obj.description.html_safe %>
+  <% end %>
+</div>

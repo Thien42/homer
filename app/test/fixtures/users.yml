@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+objectiveTest:
+    email: "test.test@epitech.eu"
+
+objectiveTest2:
+    email: "test.test2@epitech.eu"
+
+controllerProjectTestOne:
+    email: "test.test3@epitech.eu"
+controllerProjectTestTwo:
+    email: "test.test4@epitech.eu"
+controllerProjectTestThree:
+    email: "test.test5@epitech.eu"

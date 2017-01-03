@@ -1,0 +1,43 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+objectiveTest:
+  name: MyString
+  description: MyText
+  spices: 1
+
+objectiveTest2:
+  name: MyString
+  description: MyText
+  spices: 1
+
+projectTestOne:
+  name: MyString
+  description: MyText
+  spices: 1
+  status: 0
+  
+projectTestTwo:
+  name: MyString
+  description: MyText
+  spices: 30
+  status: 1
+
+
+projectTestThree:
+  name: MyString
+  description: MyText
+  spices: 30
+  status: 3
+
+
+controllerProjectTestOne:
+  name: MyString
+  description: MyText
+  spices: 30
+  status: 1
+
+controllerProjectTestDestroy:
+  name: MyString
+  description: MyText
+  spices: 30
+  status: 1

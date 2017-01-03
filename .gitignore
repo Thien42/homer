@@ -1,0 +1,8 @@
+.byebug_history
+.idea
+app/tmp
+app/log/*
+app/Gemfile.lock
+app/public/assets
+tmp/
+dump/
