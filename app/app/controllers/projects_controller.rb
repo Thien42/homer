@@ -123,6 +123,7 @@ class ProjectsController < ApplicationController
           end
         else
           @project.status = @status - 2
+          @objective.objective_validations.destroy_all
         end
       end
 
