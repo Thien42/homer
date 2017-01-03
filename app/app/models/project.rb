@@ -47,6 +47,15 @@ class Project < ApplicationRecord
     end
   end
 
+  def assigned_spices
+    @spices = ProjectFunding.where({project_id: self.id, status: 2})
+    @ret = 0
+    @spices.each do |s|
+      @ret += s.spices
+    end
+    @ret
+  end
+
   def get_status
     if self.pending?
       return "En attente de validation par un pédago"

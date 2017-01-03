@@ -29,9 +29,15 @@
           </td>
           <% end %>
           <% if current_user.role == 1 %>
-            <td>
-              <%= link_to project.get_status_action, set_status_project_path(:id => project.id, :status => Project.statuses[project.status] + 1), :class => "btn btn-default", :method => 'post' %>
-            </td>
+            <% if !project.delivery_validated? %>
+              <td>
+                <%= link_to project.get_status_action, set_status_project_path(:id => project.id, :status => Project.statuses[project.status] + 1), :class => "btn btn-default", :method => 'post' %>
+              </td>
+            <% elsif project.assigned_spices < project.spices %>
+              <td>
+                <%= link_to "Assigner des épices aux porteurs de projet", assign_spices_project_path(project), :class => "btn btn-default" %>
+              </td>
+            <% end %>
           <% end %>
           <% if project.follow_up_1_started? || project.follow_up_2_started?%>
             <% if current_user.is_funding_project(project.id) == true || current_user.role == 1 %>

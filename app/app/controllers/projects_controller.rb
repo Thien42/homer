@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :send_spices, :set_status, :objective_validation, :set_objective_status]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :send_spices, :set_status, :objective_validation, :set_objective_status, :assign_spices, :assign_spices_to_user]
 
   # GET /projects
   # GET /projects.json
@@ -202,6 +202,33 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def assign_spices
+  end
+
+  def assign_spices_to_user
+    if current_user.role == 1 && @project.delivery_validated?
+      @user = User.find_by_email(params[:project][:user])
+      @max_spices = @project.spices - @project.assigned_spices
+
+      if params[:project][:spices].to_i <= @max_spices && !@user.nil?
+        @funding = ProjectFunding.new
+        @funding.spices = params[:project][:spices]
+        @funding.user = @user
+        @funding.project = @project
+        @funding.status = 2
+        if @funding.save
+          redirect_to root_path, :flash => {success: 'épices correctement assignés'}
+        else
+          redirect_to  assign_spices_project_path(@project), :flash => {error: "Une erreur s'est produite" }
+        end
+      else
+        redirect_to  assign_spices_project_path(@project), :flash => {error: "Une erreur s'est produite, vérifiez que le nombre d'épices et est correct et que l'utilisateur existe"}
+      end
+    else
+      render :nothing => true, :status => :forbidden
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
@@ -210,6 +237,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :description, :spices, :comment, :status, :passed, objectives_attributes: [:id, :name, :date, :description, :_destroy])
+      params.require(:project).permit(:name, :description, :spices, :comment, :status, :passed, :user, objectives_attributes: [:id, :name, :date, :description, :_destroy])
     end
 end

@@ -6,7 +6,9 @@ Rails.application.routes.draw do
       post 'send_spices', on: :member
       post 'set_status', on: :member
       post 'set_objective_status', on: :member
+      post 'assign_spices_to_user', on: :member
       get  'objective_validation', on: :member
+      get 'assign_spices', on: :member
   end
 
   match "/stats", to: "stats#index", via: :get

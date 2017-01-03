@@ -18,7 +18,7 @@ class User < ApplicationRecord
       @fundings.each do |funding|
         if funding.status == 0
           @spices -= funding.spices
-        elsif funding.status == 1
+        elsif funding.status == 1 || funding.status == 2
           @spices += funding.spices
         end
       end
