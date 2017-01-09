@@ -36,8 +36,8 @@ module Homer
         :address              => "smtp.gmail.com",
         :port                 => 587,
         :domain               => "gmail.com",
-        :user_name            => "noreply.listengofast@gmail.com",
-        :password             => "listengofast42",
+        :user_name            => "noreply.hub.montpellier@gmail.com",
+        :password             => "epitech42",
         :authentication       => :login,
         :tls => false
     }
