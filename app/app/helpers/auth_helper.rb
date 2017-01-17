@@ -6,7 +6,9 @@ module AuthHelper
   CLIENT_SECRET = ENV['CLIENT_SECRET']
 
   # Scopes required by the app
-  SCOPES = [ 'openid', 'offline_access']
+  SCOPES = [ 'openid',
+             'offline_access',
+             'https://outlook.office.com/mail.read' ]
 
   REDIRECT_URI = 'http://localhost:3000/authorize' # Temporary!
 

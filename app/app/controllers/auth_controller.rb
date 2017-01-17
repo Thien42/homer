@@ -12,7 +12,7 @@ class AuthController < ApplicationController
       @user.role = 0
       @user.save
     end
-    redirect_to projects_path
+    redirect_to root_path
   end
 
   def login

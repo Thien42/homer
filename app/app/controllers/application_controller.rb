@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :current_user, :except => [:login, :gettoken]
-  helper_method :user_logged_in
+  helper_method :user_logged_in, :current_user
 
   def current_user
     if session[:user_email]
