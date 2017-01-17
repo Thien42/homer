@@ -12,6 +12,10 @@ class Objective < ApplicationRecord
     ObjectiveValidation.where({:objective_id => self.id, :passed => true}).size
   end
 
+  def get_invalid_objectives
+    ObjectiveValidation.where({:objective_id => self.id, :passed => false}).size
+  end
+
   def get_total_objectives
     ObjectiveValidation.where({:objective_id => self.id}).size
   end

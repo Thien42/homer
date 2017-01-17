@@ -6,11 +6,9 @@
           <%= link_to "Liste des absents",  stats_absents_path(:id => o.id), :class => "btn btn-default" %>
         </div>
 
-        <% @support = ((o.get_valid_objectives.to_f / o.get_total_supports.to_f) * 100).to_i %>
-        <% @present = ((o.get_total_objectives.to_f / o.get_total_supports.to_f) * 100).to_i %>
-
-        <%= pie_chart({ "Present" => @present, "Absent" => (100 - @present) }) %>
-        <%= pie_chart({ "Objectifs validés" => @support, "Objectifs non validés" => (100 - @support) }) %>
+        <% @valid = o.get_valid_objectives %>
+        <% @invalid = o.get_invalid_objectives %>
+        <%= pie_chart({ "Objectif rempli" => @valid, "Objectif non rempli" => @invalid, "Absent" => (o.get_total_supports - @valid - @invalid)}) %>
       </div>
   <% end %>
 </div>
