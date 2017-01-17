@@ -20,27 +20,25 @@
             <span class="icon-bar"></span>
           </button>
           <%= link_to "Projets Hub Montpellier", root_path, :class => "navbar-brand" %>
-
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><%= link_to "Liste des projets", root_path %></li>
             <li><%= link_to "Soumettre un projet", new_project_path %></li>
-            <% if current_user && current_user.role == 1 %>
+            <% if user_logged_in && current_user.role == 1 %>
               <li><%= link_to "Statistiques", stats_path %></li>
             <% end %>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <% if current_user %>
+              <% if user_logged_in %>
                   <%= link_to "Mes épices : " + current_user.spices.to_s, stats_spices_path %>
                   </li>
                   <li>
-                  <%= link_to "Se déconnecter",  destroy_user_session_path, method: :delete %>
+                  <%= link_to "Se déconnecter",  auth_logout_path, method: :delete %>
               <% else %>
-                  <%= link_to "Se connecter", new_user_session_path %>
+                  <%= link_to "Se connecter", auth_login_path %>
               <% end %>
             </li>
           </ul>

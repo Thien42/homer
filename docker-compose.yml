@@ -9,7 +9,6 @@ web:
     command: /usr/src/app/start.sh
     links:
         - mariadb
-        - redis
     environment:
         - RAILS_ENV=development
 
@@ -21,5 +20,3 @@ mariadb:
         - MYSQL_ROOT_PASSWORD=root
     volumes:
         - ./tmp/db:/var/lib/mysql
-redis:
-    image: redis

@@ -12,22 +12,6 @@ module Homer
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    config.cache_store = :redis_store, {
-        host: ENV["REDIS_PORT_6379_TCP_ADDR"],
-        port: ENV["REDIS_PORT_6379_TCP_PORT"],
-        db: 0,
-        password: ENV["RUBY_DOWNLOAD_SHA256"],
-        namespace: "cache"
-    }
-
-    config.session_store :redis_store, servers: {
-      host: ENV["REDIS_PORT_6379_TCP_ADDR"],
-      port: ENV["REDIS_PORT_6379_TCP_PORT"],
-      db: 0,
-      password: ENV["RUBY_DOWNLOAD_SHA256"],
-      namespace: "session"
-    }, expires_in: 90.minutes
-
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.perform_caching = false
     config.action_mailer.smtp_settings = {

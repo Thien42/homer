@@ -24,6 +24,10 @@ gem 'bootstrap-sass'
 gem 'bootstrap-datepicker-rails'
 gem 'sass-rails', '~> 5.0'
 
+# OAUTH2
+gem 'oauth2'
+gem 'activerecord-session_store'
+
 # Generate PDF
 gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf'

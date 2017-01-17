@@ -1,3 +1,4 @@
+
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :send_spices, :set_status, :objective_validation, :set_objective_status, :assign_spices, :assign_spices_to_user]
 
@@ -231,6 +232,7 @@ class ProjectsController < ApplicationController
       render :nothing => true, :status => :forbidden
     end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

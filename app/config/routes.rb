@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
-  devise_for :users
+  # devise_for :users
+
+  get 'authorize' => 'auth#gettoken'
 
   resources :projects do
       post 'send_spices', on: :member
@@ -16,5 +18,7 @@ Rails.application.routes.draw do
   match "/stats/users", to: "stats#user_data", via: :get
   match "/stats/project", to: "stats#project", via: :get
   match "/stats/absents", to: "stats#absent", via: :get
+  match "/auth/login", to: "auth#login", via: :get
+  match "/auth/logout", to: "auth#logout", via: :delete
   root "projects#index"
 end
