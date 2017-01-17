@@ -1,6 +1,4 @@
 class StatsController < ApplicationController
-  respond_to :html
-
   before_action :check_user_role
 
   def check_user_role

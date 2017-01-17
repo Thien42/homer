@@ -10,7 +10,11 @@ module AuthHelper
              'offline_access',
              'https://outlook.office.com/mail.read' ]
 
-  REDIRECT_URI = 'http://localhost:3000/authorize' # Temporary!
+  if ENV['RAILS_ENV'] == "production"
+    REDIRECT_URI = 'https://hub.evolt.io/authorize'
+  else
+    REDIRECT_URI = 'http://localhost:3000/authorize'
+  end
 
   # Generates the login URL for the app.
   def get_login_url
