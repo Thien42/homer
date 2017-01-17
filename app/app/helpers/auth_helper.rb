@@ -1,14 +1,12 @@
 module AuthHelper
 
   # App's client ID. Register the app in Application Registration Portal to get this value.
-  CLIENT_ID = '7002f5ea-59de-4188-b91f-155314ff75f8'
+  CLIENT_ID = ENV['CLIENT_ID']
   # App's client secret. Register the app in Application Registration Portal to get this value.
-  CLIENT_SECRET = 'zZmFZW61QhoZKFbRuPBDKJ9'
+  CLIENT_SECRET = ENV['CLIENT_SECRET']
 
   # Scopes required by the app
-  SCOPES = [ 'openid',
-             'offline_access',
-             'https://outlook.office.com/mail.read' ]
+  SCOPES = [ 'openid', 'offline_access']
 
   REDIRECT_URI = 'http://localhost:3000/authorize' # Temporary!
 
