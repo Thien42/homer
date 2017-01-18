@@ -26,9 +26,6 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li><%= link_to "Soumettre un projet", new_project_path %></li>
-            <% if user_logged_in && current_user.role == 1 %>
-              <li><%= link_to "Statistiques", stats_path %></li>
-            <% end %>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li>

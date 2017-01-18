@@ -2,6 +2,17 @@
   <h1 class="text-center">Liste des absents au <%= @objective.objective_type %> de <%= @objective.project.name %></h1>
 
   <% @missing.each do |m| %>
-    <h3><%= m.email %></h3>
+      <div class="col-sm-10">
+        <h3><%= m.email %></h3>
+      </div>
+      <div class="col-sm-2">
+        <% if current_user.role == 1 %>
+          <button type="button" class="btn btn-danger">
+            Supprimer ce supporter
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
+        <% end %>
+      </div>
+
   <% end %>
 </div>

@@ -1,12 +1,4 @@
 class StatsController < ApplicationController
-  before_action :check_user_role
-
-  def check_user_role
-    if current_user.role != 1
-      render :nothing => true, :status => :forbidden
-    end
-  end
-
   def user_data
     @users = User.all
     @spices = 0
@@ -25,10 +17,6 @@ class StatsController < ApplicationController
 
   def project
     @project = Project.find(params[:id])
-  end
-
-  def index
-    @projects = Project.all
   end
 
   def absent

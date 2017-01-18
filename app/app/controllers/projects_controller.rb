@@ -156,9 +156,7 @@ class ProjectsController < ApplicationController
   end
 
   def objective_validation
-    if !current_user.is_funding_project(@project.id) && current_user.role == 0
-      render nothing: true, status: :forbidden
-    elsif @project.follow_up_1_started?
+    if @project.follow_up_1_started?
       @objective = Objective.where({project_id: @project.id, objective_type: 0}).take
     elsif @project.follow_up_2_started?
       @objective = Objective.where({project_id: @project.id, objective_type: 1}).take
@@ -223,16 +221,15 @@ class ProjectsController < ApplicationController
         if @funding.save
           redirect_to root_path, :flash => {success: 'épices correctement assignés'}
         else
-          redirect_to  assign_spices_project_path(@project), :flash => {error: "Une erreur s'est produite" }
+          redirect_to assign_spices_project_path(@project), :flash => {error: "Une erreur s'est produite" }
         end
       else
-        redirect_to  assign_spices_project_path(@project), :flash => {error: "Une erreur s'est produite, vérifiez que le nombre d'épices et est correct et que l'utilisateur existe"}
+        redirect_to assign_spices_project_path(@project), :flash => {error: "Une erreur s'est produite, vérifiez que le nombre d'épices et est correct et que l'utilisateur existe"}
       end
     else
       render :nothing => true, :status => :forbidden
     end
   end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

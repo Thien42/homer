@@ -13,7 +13,6 @@ Rails.application.routes.draw do
       get 'assign_spices', on: :member
   end
 
-  match "/stats", to: "stats#index", via: :get
   match "/stats/spices", to: "stats#spices", via: :get
   match "/stats/users", to: "stats#user_data", via: :get
   match "/stats/project", to: "stats#project", via: :get
