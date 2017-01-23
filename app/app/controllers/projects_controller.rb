@@ -231,6 +231,21 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def remove_user_funding
+    if current_user.role == 1
+      @user = User.find_by_id(params[:user_id])
+      @project = Project.find_by_id(params[:project_id])
+
+      @funding = ProjectFunding.where({user_id: @user.id, project_id: @project.id}).take
+      @funding.status = 4
+      @funding.save
+
+      redirect_to stats_absents_path({:id => params[:objective_id]})
+    else
+      render :nothing => true, :status => :not_found
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project

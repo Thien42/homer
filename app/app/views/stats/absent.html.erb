@@ -7,10 +7,7 @@
       </div>
       <div class="col-sm-2">
         <% if current_user.role == 1 %>
-          <button type="button" class="btn btn-danger">
-            Supprimer ce supporter
-            <span class="glyphicon glyphicon-remove"></span>
-          </button>
+            <%= link_to "Supprimer ce supporter", projects_remove_user_path({:user_id => m.id, :project_id => @objective.project.id, :objective_id => @objective.id}), :class => "btn btn-danger", :method => :post %>
         <% end %>
       </div>
 
