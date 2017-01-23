@@ -7,7 +7,7 @@
       </div>
       <div class="col-sm-2">
         <% if current_user.role == 1 %>
-            <%= link_to "Supprimer ce supporter", projects_remove_user_path({:user_id => m.id, :project_id => @objective.project.id, :objective_id => @objective.id}), :class => "btn btn-danger", :method => :post %>
+            <%= link_to "Supprimer ce supporter", projects_remove_user_path({:user_id => m.id, :project_id => @objective.project.id, :objective_id => @objective.id}), :class => "btn btn-danger", :method => :post, data: { confirm: "Êtes-vous sûr ? Cette action est irréversible"} %>
         <% end %>
       </div>
 

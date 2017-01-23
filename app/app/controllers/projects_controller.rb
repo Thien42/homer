@@ -237,8 +237,14 @@ class ProjectsController < ApplicationController
       @project = Project.find_by_id(params[:project_id])
 
       @funding = ProjectFunding.where({user_id: @user.id, project_id: @project.id}).take
-      @funding.status = 4
-      @funding.save
+      @funding.destroy
+
+      @project.objectives.each do |o|
+        votes = ObjectiveValidation.where({user_id: @user.id, objective_id: o.id})
+        votes.each do |v|
+          v.destroy
+        end
+      end
 
       redirect_to stats_absents_path({:id => params[:objective_id]})
     else
