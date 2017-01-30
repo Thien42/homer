@@ -29,8 +29,13 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    while @project.objectives.size < 3
-      @project.objectives << Objective.new
+    if (@project.status == 0 && current_user == @project.user) || current_user.role == 1
+      while @project.objectives.size < 3
+        @project.objectives << Objective.new
+      end
+      render 'edit'
+    else
+      render :nothing => true, :status => :not_found
     end
   end
 
@@ -175,7 +180,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
-    if current_user == @project.user
+    if (current_user == @project.user && @project.status == 0) || current_user.role == 1
       respond_to do |format|
         if @project.update(project_params)
           format.html { redirect_to @project, :flash => { success: 'Projet correctement mis à jour' } }
