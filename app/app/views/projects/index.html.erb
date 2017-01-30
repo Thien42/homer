@@ -14,6 +14,7 @@
       <span class="pull-right">
         <div class="btn-group" role="group" aria-label="...">
 
+          <button class="btn btn-default" disabled><%= p.get_funded_spices %>/<%= p.spices %></button>
           <% if p.follow_up_1_started? || p.follow_up_2_started? || p.delivery_started? %>
             <%= link_to objective_validation_project_path(:id => p.id), :class => "btn btn-default", data: {toggle: "tooltip", placement: "top"}, :title => "Voir la validation" do %>
               <span class="glyphicon glyphicon-ok"></span>

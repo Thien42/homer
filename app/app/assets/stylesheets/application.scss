@@ -33,3 +33,21 @@
   color: #F1F1F1;
 }
 
+html {
+  height: 100%;
+}
+
+body {
+  height: 80%;
+  display: block;
+}
+
+.page {
+  min-height: 100%;
+  display:block;
+}
+
+.footer {
+  height: 20%;
+  display: block;
+}
