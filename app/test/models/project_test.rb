@@ -5,7 +5,7 @@ class ProjectTest < ActiveSupport::TestCase
     project = Project.new
     assert project.get_funded_spices == 0
   end
-
+/
   test "add project funding and count" do
     project = Project.new(name: "test", description: "description", spices: 0)
     userTest = User.new(:email => 'test.de@epitech.eu', :password => 'password', :password_confirmation => 'password')
@@ -43,4 +43,5 @@ class ProjectTest < ActiveSupport::TestCase
     assert 30 == projectThree.get_funded_spices, "Error status is validate"
     assert 'kick_off_validated' == projectThree.status
   end
+  /
 end

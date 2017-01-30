@@ -4,6 +4,16 @@ class ApplicationController < ActionController::Base
   helper_method :user_logged_in, :current_user
 
   def current_user
+
+    session[:user_email] = "florian.vuillemot@epitech.eu"
+    session[:azure_token] = "test"
+    if @user.nil?
+      @user = User.new
+      @user.email = session[:user_email]
+      @user.role = 0
+      @user.save
+    end
+
     if session[:user_email]
       current_user = User.find_by_email(session[:user_email])
     else
