@@ -32,7 +32,7 @@
             <%= link_to set_status_project_path(:id => p.id, :status => Project.statuses[p.status] + 1), :method => 'post', :class => "btn btn-default", data: {toggle: "tooltip", placement: "top"}, :title => "Démarrer ou arrêter l'activité" do %>
                 <% if p.follow_up_1_started? || p.follow_up_2_started? || p.delivery_started? %>
                   <span class="glyphicon glyphicon-stop"></span>
-                <% elsif %>
+                <% else %>
                   <span class="glyphicon glyphicon-play"></span>
                 <% end %>
             <% end %>
