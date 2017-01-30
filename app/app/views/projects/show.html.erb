@@ -22,26 +22,13 @@
     <% end %>
   <% end %>
 
-  <h2 class="text-center">Soutiens sur ce projet</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Email</th>
-        <th>épices</th>
-        <th>commentaire</th>
-      </tr>
-    </thead>
 
-    <tbody>
-      <% @project.project_fundings.each do |p| %>
-        <% if p.status != 3 %>
-          <tr>
-            <td><%= p.user.email %></td>
-            <td><%= p.spices %></td>
-            <td><%= p.comment %></td>
-          </tr>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
+  <ul class="list-group">
+    <% @project.project_fundings.each do |p| %>
+      <li class="list-group-item">
+        <span class="badge"><%= p.spices %></span>
+        <%= p.user.email %>&nbsp;|&nbsp;<%= p.comment %>
+      </li>
+    <% end %>
+  </ul>
 </div>

@@ -9,46 +9,68 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <%= link_to "Projets Hub Montpellier", root_path, :class => "navbar-brand" %>
-        </div>
+    <div class="page">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <%= link_to "Projets Hub Montpellier", root_path, :class => "navbar-brand" %>
+            <!--<a class="navbar-brand" rel="home" href="/" title="Buy Sell Rent Everyting">-->
+            <!--<%= image_tag "evolt.svg", :style => "max-width:100px; margin-top: -15px; margin-left:10px;" %>-->
+            <!--</a>-->
+          </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li><%= link_to "Soumettre un projet", new_project_path %></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <% if user_logged_in %>
-                  <%= link_to "Mes épices : " + current_user.spices.to_s, stats_spices_path %>
-                  </li>
-                  <li>
-                  <%= link_to "Se déconnecter",  auth_logout_path, method: :delete %>
-              <% else %>
-                  <%= link_to "Se connecter", auth_login_path %>
-              <% end %>
-            </li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li><%= link_to "Soumettre un projet", new_project_path %></li>
+              <li><%= link_to "Projets terminés",  projects_finished_path %></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <% if user_logged_in %>
+                    <%= link_to "Mes épices : " + current_user.spices.to_s, stats_spices_path %>
+                    </li>
+                    <li>
+                      <%= link_to "Se déconnecter",  auth_logout_path, method: :delete %>
+                <% else %>
+                    <%= link_to "Se connecter", auth_login_path %>
+                <% end %>
+                </li>
+                </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
 
-    <div class="container">
-      <% flash.each do |key, value| %>
-          <%= content_tag :div, value, class: "flash #{key} text-center" %>
-      <% end %>
+      <div class="container">
+        <% flash.each do |key, value| %>
+            <%= content_tag :div, value, class: "flash #{key} text-center" %>
+        <% end %>
+      </div>
+
+      <%= yield %>
     </div>
-    
-    <%= yield %>
+
+    <div class="container footer">
+      <div class="row">
+        <hr>
+        <div class="col-lg-12">
+          <div class="col-md-8">
+            <p class="muted pull-left">2016 Epitech Montpellier</p>
+          </div>
+          <div class="col-md-4">
+            <a class="pull-right" target="_blank" href="https://www.evolt.io/">
+              <%= image_tag "evolt.svg" %>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
