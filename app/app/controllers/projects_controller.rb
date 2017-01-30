@@ -5,7 +5,12 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @projects = Project.where.not({status: 9})
+  end
+
+  def finished
+    @projects = Project.where({status: 9})
+    render 'index'
   end
 
   # GET /projects/1

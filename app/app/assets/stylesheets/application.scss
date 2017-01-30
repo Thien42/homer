@@ -21,3 +21,15 @@
   border-radius: 5px;
   font-size: 1.3em;
 }
+
+.progress {
+  position: relative;
+}
+
+.progress span {
+  position: absolute;
+  display: block;
+  width: 100%;
+  color: #F1F1F1;
+}
+

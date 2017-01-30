@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   get 'authorize' => 'auth#gettoken'
 
+  match "/projects/finished", to: "projects#finished", via: :get
   resources :projects do
       post 'send_spices', on: :member
       post 'set_status', on: :member
@@ -21,5 +22,6 @@ Rails.application.routes.draw do
   match "/stats/absents", to: "stats#absent", via: :get
   match "/auth/login", to: "auth#login", via: :get
   match "/auth/logout", to: "auth#logout", via: :delete
+
   root "projects#index"
 end
