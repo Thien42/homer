@@ -29,26 +29,28 @@
           <% end %>
 
           <% if current_user.role == 1 %>
-            <%= link_to set_status_project_path(:id => p.id, :status => Project.statuses[p.status] + 1), :method => 'post', :class => "btn btn-default", data: {toggle: "tooltip", placement: "top"}, :title => "Démarrer ou arrêter l'activité" do %>
-                <% if p.follow_up_1_started? || p.follow_up_2_started? || p.delivery_started? %>
-                  <span class="glyphicon glyphicon-stop"></span>
-                <% else %>
-                  <span class="glyphicon glyphicon-play"></span>
-                <% end %>
+            <%= link_to set_status_project_path(:id => p.id, :status => Project.statuses[p.status] + 1), :method => 'post', :class => "btn btn-default", data: {toggle: "tooltip", placement: "top"}, :title => p.get_status_action do %>
+              <% if p.follow_up_1_started? || p.follow_up_2_started? || p.delivery_started? %>
+                <span class="glyphicon glyphicon-stop"></span>
+              <% elsif p.pending? %>
+                <span class="glyphicon glyphicon-ok"></span>
+              <% else %>
+                <span class="glyphicon glyphicon-play"></span>
+              <% end %>
             <% end %>
 
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="glyphicon glyphicon-option-vertical"></span>
-            </button>
-            <ul class="dropdown-menu">
-              <li><%= link_to 'Modifier le projet', edit_project_path(p) %></li>
-              <li><%= link_to 'Supprimer le projet', p, method: :delete, data: { confirm: 'Etes vous sur ?' } %></li>
-              <% if p.assigned_spices < p.spices %>
-                <li><%= link_to "Assigner des épices aux porteurs de projet", assign_spices_project_path(p) %></li>
-              <% end %>
-            </ul>
-          </div>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-option-vertical"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><%= link_to 'Modifier le projet', edit_project_path(p) %></li>
+                <li><%= link_to 'Supprimer le projet', p, method: :delete, data: { confirm: 'Etes vous sur ?' } %></li>
+                <% if p.delivery_validated? && p.assigned_spices < p.spices %>
+                  <li><%= link_to "Assigner des épices aux porteurs de projet", assign_spices_project_path(p) %></li>
+                <% end %>
+              </ul>
+            </div>
          <% end %>
         </div>
       </span>
