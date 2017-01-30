@@ -1,6 +1,12 @@
-<%= render 'form', disabled: true %>
-
 <div class="container">
+
+  <%= @project.description.html_safe %>
+
+  <% @project.objectives.each_with_index do |objective, index| %>
+      <h2><%= objective.objective_type %> <%= objective.date %></h2>
+    <%= objective.description.html_safe %>
+  <% end %>
+
   <% if current_user != @project.user  && @project.kick_off_start? %>
     <h2>Soutenir ce projet</h2>
     <%= form_for(@project, :url => { action: "send_spices" }, :method => "post", :html => { :class=> "form-horizontal" }) do |f| %>

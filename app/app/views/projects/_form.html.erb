@@ -1,47 +1,38 @@
-<% disabled = disabled ? disabled : false %>
-
 <div class="container">
   <%= form_for(@project, :html => { :class=> "form-horizontal" }) do |f| %>
 
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Nom du projet</label>
         <div class="col-sm-10">
-          <%= f.text_field :name, :class => "form-control", :disabled => disabled %>
+          <%= f.text_field :name, :class => "form-control" %>
         </div>
       </div>
 
       <div class="form-group">
         <label for="inputPassword3" class="col-sm-2 control-label">épices demandés</label>
         <div class="col-sm-10">
-          <%= f.number_field :spices, :class => "form-control", :disabled => disabled %>
+          <%= f.number_field :spices, :class => "form-control" %>
         </div>
       </div>
 
       <div class="form-group">
         <label for="inputPassword3" class="col-sm-2 control-label">Description du projet</label>
         <div class="col-sm-10">
-          <% if disabled %>
-            <%= @project.description.html_safe %>
-          <% else %>
-            <%= f.cktext_area :description, class: 'someclass', ckeditor: { language: 'fr'} %>
-        <% end %>
+          <%= f.cktext_area :description, class: 'someclass', ckeditor: { language: 'fr'} %>
         </div>
       </div>
 
-
       <% @project.objectives.each_with_index do |objective, index| %>
         <%= f.fields_for :objectives, objective do |fq| %>
-          <%= render 'objective_fields', :f => fq, :objective => objective, :disabled => disabled %>
+          <%= render 'objective_fields', :f => fq, :objective => objective %>
         <% end %>
       <% end %>
 
-      <% if disabled != true %>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
           <button type="submit" class="btn btn-default">Valider</button>
         </div>
       </div>
-      <% end %>
   <% end %>
 
 </div>

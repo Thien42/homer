@@ -1,7 +1,7 @@
 
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :send_spices, :set_status, :objective_validation, :set_objective_status, :assign_spices, :assign_spices_to_user]
-
+  before_action :sanitize_params, only: [:create]
   # GET /projects
   # GET /projects.json
   def index
@@ -263,6 +263,14 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+    def sanitize_params
+      params[:project][:objectives_attributes].each do |p|
+        params[:project][:objectives_attributes][p][:objective_type] = params[:project][:objectives_attributes][p][:objective_type].to_i
+        # params[:project][:objectives_attributes][p] = params[:project][:objectives_attributes][p].objective_type.to_i
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       @project = Project.find(params[:id])
@@ -270,6 +278,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :description, :spices, :comment, :status, :passed, :user, objectives_attributes: [:id, :name, :date, :description, :_destroy])
+      params.require(:project).permit(:name, :description, :spices, :comment, :status, :passed, :user, objectives_attributes: [:id, :name, :date, :description, :objective_type, :_destroy])
     end
 end

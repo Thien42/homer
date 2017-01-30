@@ -1,13 +1,10 @@
-<% disabled = disabled ? disabled : false %>
-
 <div class="nested-fields">
-  <% if !disabled %>
     <h2><%= objective.objective_type %></h2>
 
     <div class="form-group field">
       <%= f.label "Date de rendu", :class => "col-sm-2 control-label" %>
       <div class="col-sm-10">
-        <%= f.date_field :date, :class => "form-control datepicker", :disabled => disabled, :required => true %>
+        <%= f.date_field :date, :class => "form-control datepicker", :required => true %>
       </div>
     </div>
 
@@ -17,13 +14,10 @@
         <%= f.cktext_area :description, :class => "form-control", :required => true %>
       </div>
     </div>
-  <% else %>
-    <div class="col-sm-2"></div>
-    <div class="col-sm-10">
-      <h2><%= objective.objective_type %>&nbsp;<%= objective.date %></h2>
-      <%= objective.description.html_safe %>
+
+    <div class="hidden">
+      <%= f.number_field :objective_type %>
     </div>
-  <% end %>
 </div>
 
 <script type="text/javascript">
