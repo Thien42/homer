@@ -256,7 +256,7 @@ class ProjectsController < ApplicationController
         end
       end
 
-      redirect_to stats_absents_path({:id => params[:objective_id]})
+      redirect_to stats_project_path({:id => @project.id})
     else
       render :nothing => true, :status => :not_found
     end

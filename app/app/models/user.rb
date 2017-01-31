@@ -35,4 +35,14 @@ class User < ApplicationRecord
       return false
     end
   end
+
+  def is_present(project, type)
+    @objective = Objective.where({project_id: project.id, objective_type: type}).take
+    @validation = ObjectiveValidation.where({user_id: self.id, objective_id: @objective.id}).take
+    if @validation
+      return true
+    else
+      return false
+    end
+  end
 end

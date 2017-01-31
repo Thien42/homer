@@ -18,9 +18,4 @@ class StatsController < ApplicationController
   def project
     @project = Project.find(params[:id])
   end
-
-  def absent
-    @objective = Objective.find(params[:id])
-    @missing = @objective.get_missing_users
-  end
 end
