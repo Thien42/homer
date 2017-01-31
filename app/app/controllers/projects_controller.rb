@@ -1,7 +1,7 @@
 
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :send_spices, :set_status, :objective_validation, :set_objective_status, :assign_spices, :assign_spices_to_user]
-  before_action :sanitize_params, only: [:create]
+  before_action :sanitize_params, only: [:create, :update]
   # GET /projects
   # GET /projects.json
   def index
@@ -50,8 +50,6 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     @project.user = current_user
     @project.status = 0
-#    @project.activities.create(project_params[:activities_attributes])
-#    @project.objectives.create(project_params[:objectives_attributes])
 
     respond_to do |format|
       if @project.save
