@@ -267,7 +267,6 @@ class ProjectsController < ApplicationController
     def sanitize_params
       params[:project][:objectives_attributes].each do |p|
         params[:project][:objectives_attributes][p][:objective_type] = params[:project][:objectives_attributes][p][:objective_type].to_i
-        # params[:project][:objectives_attributes][p] = params[:project][:objectives_attributes][p].objective_type.to_i
       end
     end
 
