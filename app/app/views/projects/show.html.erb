@@ -31,8 +31,10 @@
   <ul class="list-group">
     <% @project.project_fundings.each do |p| %>
       <li class="list-group-item">
-        <span class="badge"><%= p.spices %></span>
         <%= p.user.email %>&nbsp;|&nbsp;<%= p.comment %>
+        <span class="pull-right">
+          <button class="btn btn-xs btn-success"><%= p.spices %></button>
+        </span>
       </li>
     <% end %>
   </ul>

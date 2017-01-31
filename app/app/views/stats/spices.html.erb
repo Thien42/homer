@@ -3,8 +3,11 @@
   <ul class="list-group">
     <% current_user.project_fundings.each do |p| %>
         <li class="list-group-item">
-          <span class="badge"><%= p.spices %></span>
           <%= p.project.name %>
+          <span class="pull-right">
+              <button class="btn btn-xs btn-<%= p.status == 0 ? "warning" : "success" %>"><%= p.get_status_name %></button>
+              <button class="btn btn-xs btn-success"><%= p.spices %></button>
+            </span>
         </li>
     <% end %>
   </ul>

@@ -1,23 +1,17 @@
 <div class="nested-fields">
-    <h2><%= objective.objective_type %></h2>
+  <h2 class="text-center"><%= objective.objective_type %></h2>
 
-    <div class="form-group field">
-      <%= f.label "Date de rendu", :class => "col-sm-2 control-label" %>
-      <div class="col-sm-10">
-        <%= f.date_field :date, :class => "form-control datepicker", :required => true %>
-      </div>
-    </div>
+  <div class="form-group field">
+    <%= f.date_field :date, :class => "form-control datepicker", :required => true, :placeholder => "Date de rendu" %>
+  </div>
 
-    <div class="form-group field">
-      <%= f.label "Objectifs a realiser", :class => "col-sm-2 control-label" %>
-      <div class="col-sm-10">
-        <%= f.cktext_area :description, :class => "form-control", :required => true %>
-      </div>
-    </div>
+  <div class="form-group field">
+    <%= f.cktext_area :description, :class => "form-control", :required => true %>
+  </div>
 
-    <div class="hidden">
-      <%= f.number_field :objective_type %>
-    </div>
+  <div class="hidden">
+    <%= f.number_field :objective_type %>
+  </div>
 </div>
 
 <script type="text/javascript">
