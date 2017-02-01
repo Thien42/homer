@@ -21,7 +21,7 @@ class Project < ApplicationRecord
   }
 
   def get_funded_spices
-    if Project.statuses[self.status] >= 3
+    if Project.statuses[self.status] > 3
       # Project already funded, no need to check
       return self.spices
     else

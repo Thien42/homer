@@ -1,19 +1,14 @@
 <div class="container">
   <h2 class="text-center">Mes épices</h2>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Nom du projet</th>
-      <th>Nombre d'épices</th>
-    </tr>
-    </thead>
-    <tbody>
-      <% current_user.project_fundings.each do |p| %>
-      <tr>
-        <td><%= p.project.name %></td>
-        <td><%= p.spices %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <ul class="list-group">
+    <% current_user.project_fundings.each do |p| %>
+        <li class="list-group-item">
+          <%= p.project.name %>
+          <span class="pull-right">
+              <button class="btn btn-xs btn-<%= p.status == 0 ? "warning" : "success" %>"><%= p.get_status_name %></button>
+              <button class="btn btn-xs btn-success"><%= p.spices %></button>
+            </span>
+        </li>
+    <% end %>
+  </ul>
 </div>
