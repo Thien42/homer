@@ -4,15 +4,13 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @project = projects(:controllerProjectTestOne)
     @projectDestroy = projects(:controllerProjectTestDestroy)
-/    @myConnection = User.create(email: "thienan.lacape@epitech.eu", password: Devise::Encryptor.digest(User, "helloworld"))
-    @project.user = @myConnection
-    @project.save
-    /
   end
 
-  test "test one" do
+  test "get projects" do
     get "/"
+    assert_response :success
+    get "/projects/finished"
     assert_response :success
   end
 
-  end
+end
