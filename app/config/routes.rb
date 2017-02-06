@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   match "/stats/spices", to: "stats#spices", via: :get
   match "/stats/users", to: "stats#user_data", via: :get
   match "/stats/project", to: "stats#project", via: :get
+  match "/stats/admin", to: "stats#admin", via: :get
+  match "/stats/change_status", to: "stats#change_status", via: :post
   match "/auth/login", to: "auth#login", via: :get
   match "/auth/logout", to: "auth#logout", via: :delete
 

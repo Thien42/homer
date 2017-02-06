@@ -33,16 +33,23 @@
               <li><%= link_to "Projets terminés",  projects_finished_path %></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li>
                 <% if user_logged_in %>
+                    <% if current_user.role == 1 %>
+                      <li>
+                        <%= link_to "Admin", stats_admin_path %>
+                      </li>
+                  <% end %>
+                  <li>
                     <%= link_to "Mes épices : " + current_user.spices.to_s, stats_spices_path %>
                     </li>
                     <li>
                       <%= link_to "Se déconnecter",  auth_logout_path, method: :delete %>
+                    </li>
                 <% else %>
+                  <li>
                     <%= link_to "Se connecter", auth_login_path %>
+                  </li>
                 <% end %>
-                </li>
                 </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

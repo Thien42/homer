@@ -1,0 +1,27 @@
+<div class="container">
+  <h2 class="text-center">Admininistrateurs</h2>
+
+  <ul class="list-group">
+    <% @admins.each do |a| %>
+        <li class="list-group-item">
+          <%= a.email %>
+          <span class="pull-right">
+            <%= link_to "Supprimer le status", stats_change_status_path({user_id: a.id, role: 0}), :class => "btn btn-xs btn-danger", :method => :post %>
+          </span>
+        </li>
+    <% end %>
+  </ul>
+
+  <h2 class="text-center">Utilisateurs</h2>
+  <ul class="list-group">
+    <% @users.each do |a| %>
+        <li class="list-group-item">
+          <%= a.email %>
+          <span class="pull-right">
+            <%= link_to "Passer en administrateur", stats_change_status_path({user_id: a.id, role: 1}), :class => "btn btn-xs btn-danger", :method => :post %>
+          </span>
+        </li>
+    <% end %>
+  </ul>
+
+</div>
