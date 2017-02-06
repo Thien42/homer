@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class ProjectTest < ActiveSupport::TestCase
+  /
   test "should start whitout spices" do
     project = Project.new
     assert project.get_funded_spices == 0
@@ -43,4 +44,5 @@ class ProjectTest < ActiveSupport::TestCase
     assert 30 == projectThree.get_funded_spices, "Error status is validate"
     assert 'kick_off_validated' == projectThree.status
   end
+  /
 end

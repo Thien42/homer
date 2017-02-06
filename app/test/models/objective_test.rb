@@ -4,6 +4,7 @@ class ObjectiveTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
+  /
   test "validation function" do
     obj = objectives(:objectiveTest)
 
@@ -28,4 +29,5 @@ class ObjectiveTest < ActiveSupport::TestCase
     assert 3 == obj.get_valid_objectives
     assert 3 == obj.get_total_objectives
   end
+  /
 end

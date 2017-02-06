@@ -2,18 +2,15 @@
 
 objectiveTest:
   date: 2016-11-07
-  status: 1
   passed: true
   project: objectiveTest
 
 objectiveTest2:
   date: 2016-11-07
-  status: 1
   passed: true
   project: objectiveTest2
 
 controllerProjectTestOne:
   date: 2016-11-07
-  status: 1
   project: controllerProjectTestOne
 
