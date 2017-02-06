@@ -12,7 +12,8 @@
             <div class="progress-bar" role="progressbar" style="width: <%= Project.statuses[p.status].to_f * 100 / 9 %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
               <span style="color: <%= (Project.statuses[p.status] < 5 ? "black" : "#F1F1F1") %>;"><%= p.get_status %></span>
             </div>
-            <%= p.name %>
+          </div>
+          <%= p.name %>
         <% end %>
         <span class="pull-right">
           <div class="btn-group" role="group" aria-label="...">
