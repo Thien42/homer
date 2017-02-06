@@ -4,9 +4,6 @@ class ApplicationController < ActionController::Base
   helper_method :user_logged_in, :current_user
 
   def current_user
-
-    session[:user_email] = "florian.vuillemot@epitech.eu"
-    session[:azure_token] = "test"
     current_user = User.find_by_email(session[:user_email])
     if current_user.nil?
       current_user = User.new
