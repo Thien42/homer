@@ -11,7 +11,7 @@ module AuthHelper
              'https://outlook.office.com/mail.read' ]
 
   if ENV['RAILS_ENV'] == "production"
-    REDIRECT_URI = 'https://hub.evolt.io/authorize'
+    REDIRECT_URI = ENV['REDIRECT_URI']
   else
     REDIRECT_URI = 'http://localhost:3000/authorize'
   end

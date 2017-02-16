@@ -67,7 +67,7 @@ class ProjectsController < ApplicationController
     @spices = params[:project][:spices].to_i
 
     # Check user is not funding itself
-    if @project.user != current_user
+    if @project.user != current_user && @project.kick_off_start?
       # Check spices number is correct
       if @spices == 5 || @spices == 15
         # Check the project is fundable and user has enough spices
@@ -96,6 +96,16 @@ class ProjectsController < ApplicationController
             redirect_to root_path, :flash => { success: "Vous avez donné des épices à ce projet" }
           end
         end
+      end
+    elsif current_user.role == 1
+      @user = User.find_by_email(params[:project][:description])
+      if @user.nil?
+        @user = User.new(email: params[:project][:description])
+        @user.save
+      end
+      @funding = ProjectFunding.new(user: @user, project: @project, spices: @spices, comment: params[:project][:name])
+      if @funding.save
+        redirect_to project_path(@project), :flash => { success: "Vous avez donné des épices à ce projet" }
       end
     end
   end
