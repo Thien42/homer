@@ -5,62 +5,64 @@
     </div>
   <% else %>
     <% @projects.each do |p| %>
-  <div class="list-group">
-    <div class="list-group-item clearfix">
-      <%= link_to project_path(p) do %>
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <%= Project.statuses[p.status].to_f * 100 / 9 %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-              <span style="color: <%= (Project.statuses[p.status] < 5 ? "black" : "#F1F1F1") %>;"><%= p.get_status %></span>
-            </div>
-          </div>
-          <%= p.name %>
-        <% end %>
-        <span class="pull-right">
-          <div class="btn-group" role="group" aria-label="...">
-
-            <button class="btn btn-default" disabled><%= p.get_funded_spices %>/<%= p.spices %></button>
-            <% if p.follow_up_1_started? || p.follow_up_2_started? || p.delivery_started? %>
-              <%= link_to objective_validation_project_path(:id => p.id), :class => "btn btn-default", data: {toggle: "tooltip", placement: "top"}, :title => "Voir la validation" do %>
-                <span class="glyphicon glyphicon-ok"></span>
-              <% end %>
-            <% end %>
-
-            <%= link_to project_path(p, format: :pdf), :class => "btn btn-default", target: '_blank', data: {toggle: "tooltip", placement: "top"}, :title => "Voir le PDF" do %>
-              <span class="glyphicon glyphicon-download"></span>
-            <% end %>
-
-            <%= link_to stats_project_path(:id => p.id), :class => "btn btn-default", data: {toggle: "tooltip", placement: "top"}, :title => "Voir les statistiques" do %>
-              <span class="glyphicon glyphicon-list-alt"></span>
-            <% end %>
-
-            <% if current_user.role == 1 %>
-              <%= link_to set_status_project_path(:id => p.id, :status => Project.statuses[p.status] + 1), :method => 'post', :class => "btn btn-default", data: {toggle: "tooltip", placement: "top"}, :title => p.get_status_action do %>
-                <% if p.follow_up_1_started? || p.follow_up_2_started? || p.delivery_started? %>
-                  <span class="glyphicon glyphicon-stop"></span>
-                <% elsif p.pending? %>
-                  <span class="glyphicon glyphicon-ok"></span>
-                <% else %>
-                  <span class="glyphicon glyphicon-play"></span>
-                <% end %>
-              <% end %>
-
-              <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span class="glyphicon glyphicon-option-vertical"></span>
-                </button>
-                <ul class="dropdown-menu">
-                  <li><%= link_to 'Modifier le projet', edit_project_path(p) %></li>
-                  <li><%= link_to 'Supprimer le projet', p, method: :delete, data: { confirm: 'Etes vous sur ?' } %></li>
-                  <% if p.delivery_validated? && p.assigned_spices < p.spices %>
-                    <li><%= link_to "Assigner des épices aux porteurs de projet", assign_spices_project_path(p) %></li>
-                  <% end %>
-                </ul>
+    <% if current_user.role == 1 || !p.pending? %>
+      <div class="list-group">
+        <div class="list-group-item clearfix">
+          <%= link_to project_path(p) do %>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: <%= Project.statuses[p.status].to_f * 100 / 9 %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                  <span style="color: <%= (Project.statuses[p.status] < 5 ? "black" : "#F1F1F1") %>;"><%= p.get_status %></span>
+                </div>
               </div>
-          <% end %>
+              <%= p.name %>
+            <% end %>
+            <span class="pull-right">
+              <div class="btn-group" role="group" aria-label="...">
+
+                <button class="btn btn-default" disabled><%= p.get_funded_spices %>/<%= p.spices %></button>
+                <% if p.follow_up_1_started? || p.follow_up_2_started? || p.delivery_started? %>
+                  <%= link_to objective_validation_project_path(:id => p.id), :class => "btn btn-default", data: {toggle: "tooltip", placement: "top"}, :title => "Voir la validation" do %>
+                    <span class="glyphicon glyphicon-ok"></span>
+                  <% end %>
+                <% end %>
+
+                <%= link_to project_path(p, format: :pdf), :class => "btn btn-default", target: '_blank', data: {toggle: "tooltip", placement: "top"}, :title => "Voir le PDF" do %>
+                  <span class="glyphicon glyphicon-download"></span>
+                <% end %>
+
+                <%= link_to stats_project_path(:id => p.id), :class => "btn btn-default", data: {toggle: "tooltip", placement: "top"}, :title => "Voir les statistiques" do %>
+                  <span class="glyphicon glyphicon-list-alt"></span>
+                <% end %>
+
+                <% if current_user.role == 1 %>
+                  <%= link_to set_status_project_path(:id => p.id, :status => Project.statuses[p.status] + 1), :method => 'post', :class => "btn btn-default", data: {toggle: "tooltip", placement: "top"}, :title => p.get_status_action do %>
+                    <% if p.follow_up_1_started? || p.follow_up_2_started? || p.delivery_started? %>
+                      <span class="glyphicon glyphicon-stop"></span>
+                    <% elsif p.pending? %>
+                      <span class="glyphicon glyphicon-ok"></span>
+                    <% else %>
+                      <span class="glyphicon glyphicon-play"></span>
+                    <% end %>
+                  <% end %>
+
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="glyphicon glyphicon-option-vertical"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><%= link_to 'Modifier le projet', edit_project_path(p) %></li>
+                      <li><%= link_to 'Supprimer le projet', p, method: :delete, data: { confirm: 'Etes vous sur ?' } %></li>
+                      <% if p.delivery_validated? && p.assigned_spices < p.spices %>
+                        <li><%= link_to "Assigner des épices aux porteurs de projet", assign_spices_project_path(p) %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+              <% end %>
+              </div>
+            </span>
           </div>
-        </span>
-      </div>
-    </div>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 </div>

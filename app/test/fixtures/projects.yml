@@ -1,43 +1,51 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-objectiveTest:
-  name: MyString
+projectTest:
+  name: TestProject
   description: MyText
-  spices: 1
-
-objectiveTest2:
-  name: MyString
-  description: MyText
-  spices: 1
-
-projectTestOne:
-  name: MyString
-  description: MyText
-  spices: 1
+  spices: 0
   status: 0
-  
-projectTestTwo:
-  name: MyString
+  user_id: 0
+  id: 0
+
+projectTest1:
+  name: myTest2
   description: MyText
-  spices: 30
-  status: 1
+  spices: 1
+  user_id: 1
+  id: 1
 
-
-projectTestThree:
-  name: MyString
+projectTest2:
+  name: toDelete
   description: MyText
-  spices: 30
-  status: 3
+  spices: 1
+  user_id: 0
+  id: 2
 
-
-controllerProjectTestOne:
-  name: MyString
+projectTest3:
+  name: toDelete
   description: MyText
-  spices: 30
-  status: 1
+  spices: 1
+  user_id: 0
+  id: 3
 
-controllerProjectTestDestroy:
-  name: MyString
+projectTest4:
+  name: toDelete
   description: MyText
-  spices: 30
-  status: 1
+  spices: 1
+  user_id: 0
+  id: 4
+
+projectTest5:
+  name: toDelete
+  description: MyText
+  spices: 1
+  user_id: 0
+  id: 5
+
+projectTest6:
+  name: toDelete
+  description: MyText
+  spices: 1
+  user_id: 0
+  id: 6

@@ -5,15 +5,10 @@
 # below each fixture, per the syntax in the comments below
 #
 
-objectiveTest:
-    email: "test.test@epitech.eu"
+userTest:
+    email: "user.test@epitech.eu"
+    id: 0
 
-objectiveTest2:
-    email: "test.test2@epitech.eu"
-
-controllerProjectTestOne:
-    email: "test.test3@epitech.eu"
-controllerProjectTestTwo:
-    email: "test.test4@epitech.eu"
-controllerProjectTestThree:
-    email: "test.test5@epitech.eu"
+userTest2:
+    email: "userTest.num2@epitech.eu"
+    id: 1

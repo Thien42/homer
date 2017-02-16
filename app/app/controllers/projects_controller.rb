@@ -34,7 +34,8 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    if (@project.status == 0 && current_user == @project.user) || current_user.role == 1
+    # Patch, if not to_i test always fail.
+    if ((@project.status == 0 || @project.status.to_i == 0) && current_user == @project.user) || current_user.role == 1
       while @project.objectives.size < 3
         @project.objectives << Objective.new
       end
@@ -50,7 +51,6 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     @project.user = current_user
     @project.status = 0
-
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, :flash => {success: 'Projet créé avec succès'} }
@@ -62,6 +62,7 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # POSTS 
   def send_spices
     @spices = params[:project][:spices].to_i
 
@@ -257,7 +258,7 @@ class ProjectsController < ApplicationController
       redirect_to stats_project_path({:id => @project.id})
     else
       render :nothing => true, :status => :not_found
-    end
+    end 
   end
 
   private
@@ -275,6 +276,7 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
+      puts :project
       params.require(:project).permit(:name, :description, :spices, :comment, :status, :passed, :user, objectives_attributes: [:id, :name, :date, :description, :objective_type, :_destroy])
     end
 end
