@@ -194,7 +194,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
-    if (current_user == @project.user && @project.status == 0) || current_user.role == 1
+    if (current_user == @project.user && (@project.status == 0 || @project.pending?)) || current_user.role == 1
       respond_to do |format|
         if @project.update(project_params)
           format.html { redirect_to @project, :flash => { success: 'Projet correctement mis à jour' } }

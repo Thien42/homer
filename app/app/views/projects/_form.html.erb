@@ -15,7 +15,7 @@
 
     <% @project.objectives.each_with_index do |objective, index| %>
       <%= f.fields_for :objectives, objective do |fq| %>
-        <%= render 'objective_fields', :f => fq, :objective => objective %>
+        <%= render 'objective_fields', :f => fq, :objective => objective, :index => index %>
       <% end %>
     <% end %>
 
