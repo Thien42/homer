@@ -69,7 +69,7 @@ class ProjectsController < ApplicationController
     # Check user is not funding itself
     if @project.user != current_user && @project.kick_off_start?
       # Check spices number is correct
-      if @spices == 5 || @spices == 15
+      if @spices == 5
         # Check the project is fundable and user has enough spices
 
         @end_spices = @project.get_funded_spices + @spices

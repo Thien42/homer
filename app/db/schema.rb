@@ -65,10 +65,10 @@ ActiveRecord::Schema.define(version: 20170130083958) do
     t.string   "name"
     t.text     "description", limit: 65535
     t.integer  "spices"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "user_id"
-    t.integer  "status",                    default: 0
+    t.integer  "status"
     t.index ["user_id"], name: "index_projects_on_user_id", using: :btree
   end
 
