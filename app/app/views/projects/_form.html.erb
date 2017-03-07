@@ -30,29 +30,55 @@
 </div>
 
 <script>
-  var picturesPush = {};
+  // Editor to lisent
+  let editorInstance = CKEDITOR.instances["project_description"];
+  // Variables associates
+  let picturesPush = {}; // Email of picture ever push in editor
+  let nbElementInEditor = editorInstance.getData().length; // Last size on editor before 'change' event
 
-  // Put photo get on epitech intranet in ckeditor.
+  /*
+  ** Put photo get on epitech intranet in ckeditor.
+  */
   function putPicture(editor, name){
-    var image_tag='<img src="https://cdn.local.epitech.eu/userprofil/commentview/' + name + '.jpg" alt="' + name + '">';
+    const image_tag='<img src="https://cdn.local.epitech.eu/userprofil/commentview/' + name + '.jpg" alt="' + name + '">';
 
     editor.insertHtml(image_tag);
   }
 
-  // Listener on ckeditor, if email is recognise add picture
-  var editorDescription = CKEDITOR.instances["project_description"];
-  editorDescription.on('change', function() {
-      var str = editorDescription.getData();
-      var regex = /[a-z]+\.[a-z]+@epitech.eu\b/g;
-      var match = str.match(regex);
+  /*
+  ** Check if there are epitech email in editor and load map, can insert image in editor
+  ** editor -> CKEDITOR to analyse
+  ** insertImage -> if equal true insert image in editor
+  */
+  function emailInCkeditor(editor, insertImage){
+    const str = editor.getData();
 
-      for (var i = 0; i < match.length; i++)
-      {
-        if (undefined == picturesPush[match[i]])
-        {
-          picturesPush[match[i]] = 1;
-          putPicture(editorDescription, match[i].replace("@epitech.eu", ""));
+    if (nbElementInEditor <= str.length){ // Search all email
+      const regex = /[a-z]+\.[a-z]+@epitech.eu\b/g;
+      const match = str.match(regex);
+
+      if (null !== match){
+        for (let i = 0; i < match.length; ++i){
+          if (undefined === picturesPush[match[i]]){
+            picturesPush[match[i]] = 1;
+            if (true === insertImage){
+              putPicture(editor, match[i].replace("@epitech.eu", ""));
+            }
+          }
         }
       }
+    }else{
+      // Re load map.
+      nbElementInEditor = str.length;
+      picturesPush = {};
+      emailInCkeditor(editor, false);
+    }
+    nbElementInEditor = str.length;
+  }
+
+  editorInstance.on('change', function() { // add event
+      emailInCkeditor(editorInstance, true);
   });
+
+  emailInCkeditor(editorInstance, false); // Load map
 </script>
