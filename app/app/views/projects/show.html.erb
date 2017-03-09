@@ -1,5 +1,11 @@
 <div class="container">
+  
+  <h1 class="text-center"><%= @project.name %></h1>
+  <% if false == @project.git_hub.to_s.empty? %>
+    <p><strong>Lien GitHub:</strong> <%= @project.git_hub %></p>
+  <% end %>
 
+  <h3>Présentation</h3>
   <%= @project.description.html_safe %>
 
   <% @project.objectives.each_with_index do |objective, index| %>

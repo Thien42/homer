@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170130083958) do
+ActiveRecord::Schema.define(version: 20170309203303) do
 
   create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "data_file_name",               null: false
@@ -65,10 +65,11 @@ ActiveRecord::Schema.define(version: 20170130083958) do
     t.string   "name"
     t.text     "description", limit: 65535
     t.integer  "spices"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "user_id"
-    t.integer  "status"
+    t.integer  "status",                    default: 0
+    t.string   "git_hub",                   default: ""
     t.index ["user_id"], name: "index_projects_on_user_id", using: :btree
   end
 
