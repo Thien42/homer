@@ -2,7 +2,7 @@
   <h1 class="text-center"><%= @project.name %></h1>
 
   <% if false == @project.git_hub.to_s.empty? %>  
-    <h3>Lien GitHub : <%= @project.git_hub %></h3>
+    <h3>GitHub : <%= @project.git_hub %></h3>
   <% end %>
   
   <%= @project.description.html_safe %>
