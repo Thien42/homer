@@ -5,7 +5,7 @@
     <p><strong>GitHub:</strong> <%= @project.git_hub %></p>
   <% end %>
 
-  <h3>Présentation</h3>
+  <h2>Présentation</h2>
   <%= @project.description.html_safe %>
 
   <% @project.objectives.each_with_index do |objective, index| %>

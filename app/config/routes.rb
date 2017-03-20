@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   # devise_for :users
 
+  resources :visitor
+
   get 'authorize' => 'auth#gettoken'
 
   match "/projects/finished", to: "projects#finished", via: :get

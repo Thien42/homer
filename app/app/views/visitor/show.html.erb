@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Homer</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'https://www.gstatic.com/charts/loader.js' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="page">
+      <nav class="navbar navbar-default" style="padding-bottom: 20px">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header" style="width: 20%">
+            <a class="navbar-brand" rel="home" href="/" title="Buy Sell Rent Everyting">
+              <%= image_tag "logo.jpg", :style => "max-height:35px; margin-top: -8px; margin-left:10px;" %>
+            </a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="h1 nav nav-center" style="text-align: center; width: 60%; display: inline-block">
+                Hub Epitech Montpellier
+            </div> 
+            <ul class="nav navbar-nav navbar-right" style="width: 20%; text-align: right">
+                <li style="width: 100%">
+                  <%= link_to "Se connecter",  auth_login_path %>
+                </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
+        <div class="container">
+        
+        <h1 class="text-center"><%= @project.name %></h1>
+        <% if false == @project.git_hub.to_s.empty? %>
+            <p><strong>GitHub:</strong> <%= @project.git_hub %></p>
+        <% end %>
+
+        <h2>Présentation</h2>
+        <%= @project.description.html_safe %>
+
+        <% @project.objectives.each_with_index do |objective, index| %>
+            <h2 style='margin-top: 50px; text-align: center'><%= objective.objective_type %> <%= objective.date %></h2>
+            <%= objective.description.html_safe %>
+        <% end %>
+
+        </div>
+    </div>
+  </body>
+</html>

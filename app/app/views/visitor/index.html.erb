@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Homer</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'https://www.gstatic.com/charts/loader.js' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="page">
+      <nav class="navbar navbar-default" style="padding-bottom: 20px">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header" style="width: 20%">
+            <a class="navbar-brand" rel="home" href="/" title="Buy Sell Rent Everyting">
+              <%= image_tag "logo.jpg", :style => "max-height:35px; margin-top: -8px; margin-left:10px;" %>
+            </a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="h1 nav nav-center" style="text-align: center; width: 60%; display: inline-block">
+                Hub Epitech Montpellier
+            </div> 
+            <ul class="nav navbar-nav navbar-right" style="width: 20%; text-align: right">
+                <li style="width: 100%">
+                  <%= link_to "Se connecter",  auth_login_path %>
+                </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
+        <div class="container">
+        <% if @projects.empty? %>
+            <div class="text-center" style="font-size: 20px">
+            Aucun projet
+            </div>
+        <% else %>
+            <% @projects.each do |p| %>
+            <div class="list-group">
+                <div class="list-group-item clearfix">
+                <%= link_to visitor_path(p) do %>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: <%= Project.statuses[p.status].to_f * 100 / 9 %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                        <span style="color: <%= (Project.statuses[p.status] < 5 ? "black" : "#F1F1F1") %>;"><%= p.get_status %></span>
+                        </div>
+                    </div>
+                    <%= p.name %>
+                <% end %>
+                <span class="pull-right">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <%= link_to visitor_path(p, format: :pdf), :class => "btn btn-default", target: '_blank', data: {toggle: "tooltip", placement: "top"}, :title => "Voir le PDF" do %>
+                            <span class="glyphicon glyphicon-download"></span>
+                        <% end %>
+                    </div>
+                </span>
+                </div>
+            </div>
+            <% end %>
+        <% end %>
+        </div>
+
+     <div class="container footer">
+      <div class="row">
+        <hr>
+        <div class="col-lg-12">
+          <div class="col-md-8">
+            <p class="muted pull-left">2017 Epitech Montpellier</p>
+          </div>
+          <div class="col-md-4">
+            <a class="pull-right" target="_blank" href="https://www.evolt.io/">
+              <%= image_tag "evolt.svg" %>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
