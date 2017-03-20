@@ -2,7 +2,7 @@ class VisitorController < ActionController::Base
   # GET /visitor
   # GET /visitor.json
   def index
-    @projects = Project.order(:name)
+    @projects = Project.where.not({status: 0}).order(:name)
   end
 
   # GET /visitor/1
