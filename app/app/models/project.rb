@@ -20,6 +20,10 @@ class Project < ApplicationRecord
       delivery_validated:     9
   }
 
+  def is_re_fundable
+    Project.statuses[self.status] > 6
+  end
+
   def get_funded_spices
     if Project.statuses[self.status] > 3
       # Project already funded, no need to check

@@ -1,6 +1,6 @@
 
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :send_spices, :set_status, :objective_validation, :set_objective_status, :assign_spices, :assign_spices_to_user]
+  before_action :set_project, only: [:show, :edit, :update, :clone,  :destroy, :send_spices, :set_status, :objective_validation, :set_objective_status, :assign_spices, :assign_spices_to_user]
   before_action :sanitize_params, only: [:create, :update]
   # GET /projects
   # GET /projects.json
@@ -32,14 +32,24 @@ class ProjectsController < ApplicationController
     @project.objectives << Objective.new({objective_type: 2})
   end
 
+  # GET /projects/1/clone
+  def clone
+    @project2 = @project
+    @project = Project.new
+    @project.name = @project2.name
+    @project.git_hub = @project2.git_hub
+    @project.description = @project2.description
+    @project.objectives << Objective.new({objective_type: 0})
+    @project.objectives << Objective.new({objective_type: 1})
+    @project.objectives << Objective.new({objective_type: 2})
+    render :new
+  end
+
   # GET /projects/1/edit
   def edit
     # Patch, if not to_i test always fail.
-    if ((@project.status == 0 || @project.status.to_i == 0) && current_user == @project.user) || current_user.role == 1
-      while @project.objectives.size < 3
-        @project.objectives << Objective.new
-      end
-      render 'edit'
+    if (@project.status == 0 && current_user == @project.user) || current_user.role == 1
+      render 'new'
     else
       render :nothing => true, :status => :not_found
     end
@@ -49,15 +59,23 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
-    @project.user = current_user
-    @project.status = 0
-    respond_to do |format|
-      if @project.save
-        format.html { redirect_to @project, :flash => {success: 'Projet créé avec succès'} }
+    @nameEverExist = Project.find_by name: @project.name
+    if @nameEverExist == nil || (@nameEverExist.user == current_user && @nameEverExist.is_re_fundable)
+      @project.user = current_user
+      @project.status = 0
+      respond_to do |format|
+        if @project.save
+          format.html { redirect_to @project, :flash => {success: 'Projet créé avec succès'} }
+          format.json { render :show, status: :created, location: @project }
+        else
+          format.html { render :new }
+          format.json { render json: @project.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to @project, :flash => {error: 'Impossible de crée le projet, ce nom est déjà utilisé'} }
         format.json { render :show, status: :created, location: @project }
-      else
-        format.html { render :new }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
   end
