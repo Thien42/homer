@@ -28,29 +28,26 @@
         </div><!-- /.container-fluid -->
       </nav>
 
-        <div class="container">
-        
-        <h1 class="text-center"><%= @project.name %></h1>
-        <% if false == @project.git_hub.to_s.empty? %>
-            <p><strong>GitHub:</strong> <%= @project.git_hub %></p>
+      <div class="container">
+        <h1 class="text-center"><%= @projects.first.name %></h1>
+
+        <% @projects.each_with_index do |p, index| %>
+            <div class="text-center" style="font-size:large;margin-top:5%;">
+                <%= link_to visitor_path(p) do %>
+                    <span style='text-decoration: underline;'>Etape <%= @projects.size - index %>:</span> Du <%= p.created_at.to_formatted_s(:db) %> au <%= p.objectives.last.date.to_formatted_s(:db) %>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: <%= Project.statuses[p.status].to_f * 100 / 9 %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            <span style="color: <%= (Project.statuses[p.status] < 5 ? "black" : "#F1F1F1") %>;"><%= p.get_status %></span>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
         <% end %>
 
-        <h2>Présentation</h2>
-        <%= @project.description.html_safe %>
-
-        <% @project.objectives.each_with_index do |objective, index| %>
-            <h2 style='margin-top: 50px; text-align: center'><%= objective.objective_type %> <%= objective.date %></h2>
-            <%= objective.description.html_safe %>
-        <% end %>
-
-    
-        <div class="text-center" style="font-size:large">
-          <% if @number_of_project > 1 %>
-            <%= link_to historic_visitor_path(:id => @project.id) do %>Historique du projet<% end %>
-          <% end %>
-        </div>
-
-        </div>
+      </div>
+      <div class="text-center">
+        <%= link_to "/visitor" do %>Retour à l'ensemble des projets<% end %>
+      </div>
     </div>
   </body>
 </html>

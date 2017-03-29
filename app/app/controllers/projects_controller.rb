@@ -1,6 +1,6 @@
 
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :clone,  :destroy, :send_spices, :set_status, :objective_validation, :set_objective_status, :assign_spices, :assign_spices_to_user]
+  before_action :set_project, only: [:show, :edit, :update, :clone,  :destroy, :historic, :send_spices, :set_status, :objective_validation, :set_objective_status, :assign_spices, :assign_spices_to_user]
   before_action :sanitize_params, only: [:create, :update]
   # GET /projects
   # GET /projects.json
@@ -16,6 +16,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+    @number_of_project = Project.where({name: @project.name}).size
     respond_to do |format|
       format.html { render :show }
       format.pdf {
@@ -55,6 +56,12 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # GET /projects/:id/historic
+  def historic
+    @projects = Project.where({name: @project.name}).order('created_at desc')
+    render :historic
+  end
+  
   # POST /projects
   # POST /projects.json
   def create

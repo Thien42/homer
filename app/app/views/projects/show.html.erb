@@ -16,6 +16,10 @@
   <% if current_user == @project.user && (@project.follow_up_2_validated? || @project.delivery_started? || @project.delivery_validated?) %>
     <%= link_to clone_project_path(:id => @project.id) do %>Poursuivre le projet<% end %>
   <% end %>
+    
+  <% if @number_of_project > 1 %>
+    <%= link_to historic_project_path(:id => @project.id) do %>Historique du projet<% end %>
+  <% end %>
 
   <% if current_user != @project.user && @project.kick_off_start? %>
     <h2>Soutenir ce projet</h2>

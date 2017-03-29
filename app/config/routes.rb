@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   # devise_for :users
 
-  resources :visitor
+  resources :visitor do
+    get 'historic', on: :member
+  end
 
   get 'authorize' => 'auth#gettoken'
 
@@ -16,6 +18,7 @@ Rails.application.routes.draw do
       get  'objective_validation', on: :member
       get 'assign_spices', on: :member
       get 'clone', on: :member
+      get 'historic', on: :member
   end
 
   match "/projects/remove_user", to: "projects#remove_user_funding", via: :post
