@@ -3,7 +3,11 @@
 <% @projects.each_with_index do |p, index| %>
     <p class="text-center">
         <%= link_to project_path(p) do %>
-            Du <%= p.created_at.to_formatted_s(:db) %> au <%= p.objectives.last.date.to_formatted_s(:db) %>: Etape <%= @projects.size - index %>
+            <% if p.objectives.size > 0 %>
+                Version <%= @projects.size - index %>: Du <%= p.created_at.to_formatted_s(:db) %> au <%= p.objectives.last.date.to_formatted_s(:db) %>
+            <% else %>
+                Version <%= @projects.size - index %> en cours de validation.
+            <% end %>
             <div class="progress">
                 <div class="progress-bar" role="progressbar" style="width: <%= Project.statuses[p.status].to_f * 100 / 9 %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                     <span style="color: <%= (Project.statuses[p.status] < 5 ? "black" : "#F1F1F1") %>;"><%= p.get_status %></span>

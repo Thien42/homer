@@ -13,12 +13,12 @@
     <%= objective.description.html_safe %>
   <% end %>
 
-  <% if current_user == @project.user && (@project.follow_up_2_validated? || @project.delivery_started? || @project.delivery_validated?) %>
-    <%= link_to clone_project_path(:id => @project.id) do %>Poursuivre le projet<% end %>
+  <% if (current_user == @project.user || current_user.role == 1) && (@project.is_re_fundable) %>
+    <p><%= link_to clone_project_path(:id => @project.id) do %>Poursuivre le projet<% end %></p>
   <% end %>
     
   <% if @number_of_project > 1 %>
-    <%= link_to historic_project_path(:id => @project.id) do %>Historique du projet<% end %>
+    <p><%= link_to historic_project_path(:id => @project.id) do %>Historique du projet<% end %></p>
   <% end %>
 
   <% if current_user != @project.user && @project.kick_off_start? %>

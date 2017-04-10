@@ -36,14 +36,18 @@ class ProjectsController < ApplicationController
   # GET /projects/1/clone
   def clone
     @project2 = @project
-    @project = Project.new
-    @project.name = @project2.name
-    @project.git_hub = @project2.git_hub
-    @project.description = @project2.description
-    @project.objectives << Objective.new({objective_type: 0})
-    @project.objectives << Objective.new({objective_type: 1})
-    @project.objectives << Objective.new({objective_type: 2})
-    render :new
+    if current_user == @project.user || current_user.role == 1
+      @project = Project.new
+      @project.name = @project2.name
+      @project.git_hub = @project2.git_hub
+      @project.description = @project2.description
+      @project.objectives << Objective.new({objective_type: 0})
+      @project.objectives << Objective.new({objective_type: 1})
+      @project.objectives << Objective.new({objective_type: 2})
+      render :new
+    else
+      render(:file => File.join(Rails.root, 'public/405.html'), :status => 405, :layout => false)
+    end
   end
 
   # GET /projects/1/edit
@@ -67,7 +71,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @nameEverExist = Project.find_by name: @project.name
-    if @nameEverExist == nil || (@nameEverExist.user == current_user && @nameEverExist.is_re_fundable)
+    if @nameEverExist == nil || ((@nameEverExist.user == current_user || current_user.role == 1) && @nameEverExist.is_re_fundable)
       @project.user = current_user
       @project.status = 0
       respond_to do |format|

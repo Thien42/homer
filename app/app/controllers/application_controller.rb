@@ -4,6 +4,9 @@ class ApplicationController < ActionController::Base
   helper_method :user_logged_in, :current_user
 
   def current_user
+
+    session[:user_email] = "test.tes3@epitech.eu"
+
     current_user = User.find_by_email(session[:user_email])
     if current_user.nil?
       current_user = User.new

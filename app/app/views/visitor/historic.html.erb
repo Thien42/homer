@@ -34,7 +34,7 @@
         <% @projects.each_with_index do |p, index| %>
             <div class="text-center" style="font-size:large;margin-top:5%;">
                 <%= link_to visitor_path(p) do %>
-                    <span style='text-decoration: underline;'>Etape <%= @projects.size - index %>:</span> Du <%= p.created_at.to_formatted_s(:db) %> au <%= p.objectives.last.date.to_formatted_s(:db) %>
+                    <span style='text-decoration: underline;'>Version <%= @projects.size - index %>:</span> Du <%= p.created_at.to_formatted_s(:db) %> au <%= p.objectives.last.date.to_formatted_s(:db) %>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" style="width: <%= Project.statuses[p.status].to_f * 100 / 9 %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                             <span style="color: <%= (Project.statuses[p.status] < 5 ? "black" : "#F1F1F1") %>;"><%= p.get_status %></span>

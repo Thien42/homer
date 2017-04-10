@@ -21,7 +21,12 @@ class Project < ApplicationRecord
   }
 
   def is_re_fundable
-    Project.statuses[self.status] > 6
+    @projectSup = Project.where(:name => self.name).where("created_at > :start_date", {start_date: self.created_at})
+    if nil === @projectSup
+      return true
+    else
+      return Project.statuses[self.status] > 6# && nil == @projectSup
+    end
   end
 
   def get_funded_spices
