@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  #get 'setting/index'
+
   mount Ckeditor::Engine => '/ckeditor'
   # devise_for :users
 
@@ -29,6 +31,9 @@ Rails.application.routes.draw do
   match "/stats/change_status", to: "stats#change_status", via: :post
   match "/auth/login", to: "auth#login", via: :get
   match "/auth/logout", to: "auth#logout", via: :delete
+
+  match "/setting", to: "setting#index", via: :get
+  match "/setting", to: "setting#create", via: :post
 
   root "projects#index"
 end

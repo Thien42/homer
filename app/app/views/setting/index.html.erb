@@ -1,0 +1,71 @@
+<div class="container">
+  <h2 class="text-center">Paramètre</h2>
+
+  <%= form_tag :action => 'create' %>
+    <table style="width: 100%; height: 100%;">
+      <tr>
+        <td>
+          Nom de la 'monnaie':
+        </td>
+        <td>
+          <input type="text" name="money_name" value="<%= money_name %>" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+        Advisors activé:
+        </td>
+        <td>
+          <label class="switch">
+            <input type="checkbox" name="advisors_activates" <% if advisor_activate %> checked <% end %> onchange="advisorChange()">
+            <div class="slider round"></div>
+          </label>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Nombre
+          <% if 'aeioué'.include? money_name[0]  %>
+              d'
+          <% else %>
+              de
+          <% end %>
+          <%= money_name.capitalize %> pour les advisors:
+        </td>
+        <td>
+          <input type="number" id="nb_spices_advisors" name="nb_spices_advisors" value="<%= advisor_spice %>" <% if !advisor_activate %> disabled <% end %> />
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Nombre
+          <% if 'aeioué'.include? money_name[0]  %>
+              d'
+          <% else %>
+              de
+          <% end %>
+          <%= money_name.capitalize %> pour les investisseurs:
+        </td>
+        <td>
+          <input type="number" name="nb_spices_supporter" value="<%= investisor_spice %>" />
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          <input type="submit" value="Valider">
+        </td>
+      </tr>
+    </table>
+
+</div>
+
+<script>
+    function advisorChange(){
+      var input = document.getElementById('nb_spices_advisors');
+
+      input.disabled = !input.disabled;
+    }
+</script>

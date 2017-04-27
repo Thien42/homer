@@ -31,6 +31,9 @@
             <ul class="nav navbar-nav">
               <li><%= link_to "Soumettre un projet", new_project_path %></li>
               <li><%= link_to "Projets terminés",  projects_finished_path %></li>
+              <% if current_user.role == 1 %>
+                <li><%= link_to "Paramètres",  setting_path %></li>
+              <% end %>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <% if user_logged_in %>
@@ -40,7 +43,7 @@
                       </li>
                   <% end %>
                   <li>
-                    <%= link_to "Mes épices : " + current_user.spices.to_s, stats_spices_path %>
+                    <%= link_to "Mes " + money_name + " : " + current_user.spices.to_s, stats_spices_path %>
                     </li>
                     <li>
                       <%= link_to "Se déconnecter",  auth_logout_path, method: :delete %>

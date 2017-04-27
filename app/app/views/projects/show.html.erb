@@ -25,9 +25,19 @@
     <h2>Soutenir ce projet</h2>
     <%= form_for(@project, :url => { action: "send_spices" }, :method => "post", :html => { :class => "form-horizontal" }) do |f| %>
       <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Nombre d'épices (max 5)</label>
+        <label for="inputEmail3" class="col-sm-2 control-label">Nombre
+          <% if 'aeioué'.include? money_name[0]  %>
+            d'
+          <% else %>
+              de
+          <% end %>
+          <%= money_name %></label>
         <div class="col-sm-10">
-          <%= f.select :spices, [5], {} %>
+          <% if advisor_activate %>
+            <%= f.select :spices, [investisor_spice, advisor_spice], {} %>
+          <% else %>
+              <%= f.select :spices, [investisor_spice], {} %>
+          <% end %>
         </div>
       </div>
       <div class="form-group">
@@ -45,7 +55,7 @@
   <!--<% if current_user.role == 1 %>-->
     <!--<%= form_for(@project, :url => {action: "send_spices"}, :method => "post", :html => { :class => "form-horizontal" }) do |f| %>-->
       <!--<div class="form-group">-->
-        <!--<label for="inputEmail3" class="col-sm-2 control-label">Nombre d'épices (max 5)</label>-->
+        <!--<label for="inputEmail3" class="col-sm-2 control-label">Nombre d'" + <%= money_name %> + " (max 5)</label>-->
         <!--<div class="col-sm-10">-->
           <!--<%= f.select :spices, [5, 15], {} %>-->
         <!--</div>-->

@@ -94,7 +94,7 @@ class ProjectsController < ApplicationController
     # Check user is not funding itself
     if @project.user != current_user && @project.kick_off_start?
       # Check spices number is correct
-      if @spices == 5
+      if (advisor_activate && (@spices == investisor_spice || @spices == advisor_spice)) || @spices == investisor_spice
         # Check the project is fundable and user has enough spices
 
         @end_spices = @project.get_funded_spices + @spices
@@ -104,7 +104,7 @@ class ProjectsController < ApplicationController
           @fundings = ProjectFunding.where(user: current_user)
           @fundings.each do |f|
             if f.project == @project
-              redirect_to @project, :flash => { error: "Vous avez déja donné des épices à ce projet" }
+              redirect_to @project, :flash => { error: "Vous avez déja donné des " + money_name + " à ce projet" }
               return
             end
           end
@@ -118,7 +118,7 @@ class ProjectsController < ApplicationController
               @project.kick_off_validated!
               @project.save
             end
-            redirect_to root_path, :flash => { success: "Vous avez donné des épices à ce projet" }
+            redirect_to root_path, :flash => { success: "Vous avez donné des " + money_name + " à ce projet" }
           end
         end
       end
@@ -130,7 +130,7 @@ class ProjectsController < ApplicationController
       end
       @funding = ProjectFunding.new(user: @user, project: @project, spices: @spices, comment: params[:project][:name])
       if @funding.save
-        redirect_to project_path(@project), :flash => { success: "Vous avez donné des épices à ce projet" }
+        redirect_to project_path(@project), :flash => { success: "Vous avez donné des " + money_name + " à ce projet" }
       end
     end
   end
@@ -263,12 +263,12 @@ class ProjectsController < ApplicationController
         @funding.project = @project
         @funding.status = 2
         if @funding.save
-          redirect_to root_path, :flash => {success: 'épices correctement assignés'}
+          redirect_to root_path, :flash => {success: money_name + ' correctement assignés'}
         else
           redirect_to assign_spices_project_path(@project), :flash => {error: "Une erreur s'est produite" }
         end
       else
-        redirect_to assign_spices_project_path(@project), :flash => {error: "Une erreur s'est produite, vérifiez que le nombre d'épices et est correct et que l'utilisateur existe"}
+        redirect_to assign_spices_project_path(@project), :flash => {error: "Une erreur s'est produite, vérifiez que le nombre d'" + money_name + " et est correct et que l'utilisateur existe"}
       end
     else
       render :nothing => true, :status => :forbidden

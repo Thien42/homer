@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  money_name: MyString
+  advisors_activates: false
+  nb_spices_advisors: 1
+  nb_spices_supporter: 1
+
+two:
+  money_name: MyString
+  advisors_activates: false
+  nb_spices_advisors: 1
+  nb_spices_supporter: 1
