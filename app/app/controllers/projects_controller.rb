@@ -35,21 +35,25 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/clone
   def clone
-    @project2 = @project
-    @project = Project.new
-    @project.name = @project2.name
-    @project.git_hub = @project2.git_hub
-    @project.description = @project2.description
-    @project.objectives << Objective.new({objective_type: 0})
-    @project.objectives << Objective.new({objective_type: 1})
-    @project.objectives << Objective.new({objective_type: 2})
-    render :new
+    if @project.user == current_user
+      @project2 = @project
+      @project = Project.new
+      @project.name = @project2.name
+      @project.git_hub = @project2.git_hub
+      @project.description = @project2.description
+      @project.objectives << Objective.new({objective_type: 0})
+      @project.objectives << Objective.new({objective_type: 1})
+      @project.objectives << Objective.new({objective_type: 2})
+      render :new
+    else
+      render :nothing => true, :status => :not_found
+    end
   end
 
   # GET /projects/1/edit
   def edit
     # Patch, if not to_i test always fail.
-    if (@project.status == 0 && current_user == @project.user) || current_user.role == 1
+    if ((@project.status == 0 || @project.pending?) && current_user == @project.user) || current_user.role == 1
       render 'new'
     else
       render :nothing => true, :status => :not_found

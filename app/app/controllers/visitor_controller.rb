@@ -9,7 +9,8 @@ class VisitorController < ActionController::Base
   # GET /visitor/1.json
   def show
     @project = Project.find(params[:id])
-    
+
+    @number_of_project = Project.where({name: @project.name}).size
     respond_to do |format|
       format.html { render :show }
       format.pdf {
@@ -17,5 +18,13 @@ class VisitorController < ActionController::Base
       }
     end
   end
+
+  # GET /projects/:id/historic
+  def historic
+    @project = Project.find(params[:id])
+    @projects = Project.where({name: @project.name}).order('created_at desc')
+    render :historic
+  end
+
 
 end
