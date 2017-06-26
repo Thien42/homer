@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
 
   get 'authorize' => 'auth#gettoken'
+  get 'authorize2' => 'auth#gettoken2'
 
   match "/projects/finished", to: "projects#finished", via: :get
   resources :projects do
